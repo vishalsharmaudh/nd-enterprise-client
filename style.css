@@ -440,7 +440,7 @@ html, body {
 .slider {
   width: 100vw;
   height: var(--height);
-  overflow: hidden;
+  /* overflow: hidden; */
   mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
 }
 .slider .list {
