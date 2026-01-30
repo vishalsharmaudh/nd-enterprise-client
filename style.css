@@ -380,8 +380,7 @@ html, body {
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .why-container {
-    grid-template-columns: 1fr 1fr;
-    /* grid-template-areas: "why-stats"; */
+    grid-template-columns: 1fr;
   }
 }
 
