@@ -15,6 +15,11 @@ body {
   background: var(--bg);
   color: var(--dark);
 }
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 
 /* HEADER */
 .header {
@@ -246,7 +251,9 @@ body {
 
 .service-card { 
   box-sizing: border-box;
-  width: 190px;
+  width: 100%;
+  max-width: 260px;
+  margin: auto;
   height: 254px;
   padding: 16px;
   background: rgba(217, 217, 217, 0.58);
@@ -400,6 +407,12 @@ body {
   50% { transform: translateY(-12px); }
 }
 
+@media (max-width: 600px) {
+  .hero {
+    padding: 30px 20px;
+  }
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .hero {
@@ -428,7 +441,7 @@ body {
 
 
 .slider {
-  width: 100%;
+  width: 100vw;
   height: var(--height);
   overflow: hidden;
   mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
@@ -436,6 +449,7 @@ body {
 .slider .list {
   display: flex;
   width: 100%;
+  overflow: hidden;
   min-width: calc(var(--width) * var(--quantity));
   position: relative;
 }
@@ -488,6 +502,11 @@ body {
   border: none;
   font-size: 26px;
   cursor: pointer;
+}
+@media (max-width: 600px) {
+  .header {
+    padding: 15px 20px;
+  }
 }
 
 /* Mobile view */
