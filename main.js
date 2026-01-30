@@ -61,15 +61,11 @@ dots.forEach((dot, index) => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
 
-  const toggle = document.querySelector(".menu-toggle");
-  const nav = document.querySelector(".header nav");
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
 
-  if(!toggle || !nav) return;
-
-  toggle.addEventListener("click", () => {
-    nav.classList.toggle("show");
-  });
-
+menuToggle.addEventListener("click", () => {
+  navMenu.classList.toggle("show");
 });
+  
