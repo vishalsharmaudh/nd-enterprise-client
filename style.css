@@ -477,7 +477,7 @@ body {
   color: #334155;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .service-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
