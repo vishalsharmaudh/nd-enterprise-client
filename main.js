@@ -202,7 +202,7 @@ function runStarIntro() {
   clone.style.zIndex = "99999";
   clone.style.pointerEvents = "none";
   clone.style.willChange = "transform";
-  clone.style.transition = "transform 1.1s ease-in-out";
+  clone.style.transition = "transform 1s ease-in-out";
 
   // start big in center
   clone.style.transform = "translate(-50%, -50%) scale(18)";
