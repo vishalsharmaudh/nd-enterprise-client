@@ -186,7 +186,8 @@ window.addEventListener('scroll', () => {
   }
 });
 
-window.addEventListener("load", () => {
+// Star Intro
+function runStarIntro() {
 
   const realStar = document.getElementById("starLogo");
   if (!realStar) return;
@@ -203,7 +204,7 @@ window.addEventListener("load", () => {
   clone.style.willChange = "transform";
   clone.style.transition = "transform 1.1s ease-in-out";
 
-  // start state (center + big)
+  // start big in center
   clone.style.transform = "translate(-50%, -50%) scale(18)";
 
   document.body.appendChild(clone);
@@ -220,13 +221,18 @@ window.addEventListener("load", () => {
   const dy = targetY - centerY;
 
   requestAnimationFrame(() => {
-    clone.style.transform =
-      `translate(${dx}px, ${dy}px) scale(1)`;
+    clone.style.transform = `translate(${dx}px, ${dy}px) scale(1)`;
   });
 
   clone.addEventListener("transitionend", () => {
     clone.remove();
     realStar.style.visibility = "visible";
   });
+}
 
+
+/* ✅ THIS is the important part */
+
+window.addEventListener("pageshow", () => {
+  runStarIntro();
 });
