@@ -43,15 +43,28 @@ function prevSlide() {
   showSlide(currentIndex);
 }
 
-nextBtn.addEventListener("click", () => {
-  clearInterval(interval);
-  nextSlide();
-});
+if (nextBtn && prevBtn && dots.length && slides.length) {
 
-prevBtn.addEventListener("click", () => {
-  clearInterval(interval);
-  prevSlide();
-});
+  nextBtn.addEventListener("click", () => {
+    clearInterval(interval);
+    nextSlide();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    clearInterval(interval);
+    prevSlide();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      clearInterval(interval);
+      currentIndex = index;
+      showSlide(currentIndex);
+    });
+  });
+
+}
+
 
 dots.forEach((dot, index) => {
   dot.addEventListener("click", () => {
@@ -108,11 +121,11 @@ revealSections.forEach(section => {
 const formInputs = document.querySelectorAll('.form-group input, .form-group select');
 
 formInputs.forEach(input => {
-  input.addEventListener('focus', function() {
+  input.addEventListener('focus', function () {
     this.parentElement.style.transform = 'scale(1.02)';
   });
-  
-  input.addEventListener('blur', function() {
+
+  input.addEventListener('blur', function () {
     this.parentElement.style.transform = 'scale(1)';
   });
 });
@@ -121,7 +134,7 @@ formInputs.forEach(input => {
 const urgencyButtons = document.querySelectorAll('.urgency-btn');
 
 urgencyButtons.forEach(button => {
-  button.addEventListener('click', function() {
+  button.addEventListener('click', function () {
     urgencyButtons.forEach(btn => btn.classList.remove('active'));
     this.classList.add('active');
   });
@@ -131,7 +144,7 @@ urgencyButtons.forEach(button => {
 function animateCounter(element, target, duration = 2000) {
   let start = 0;
   const increment = target / (duration / 16);
-  
+
   const counter = setInterval(() => {
     start += increment;
     if (start >= target) {
@@ -173,7 +186,47 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Add loading animation
-window.addEventListener('load', () => {
-  document.body.classList.add('loaded');
+window.addEventListener("load", () => {
+
+  const realStar = document.getElementById("starLogo");
+  if (!realStar) return;
+
+  const rect = realStar.getBoundingClientRect();
+
+  const clone = realStar.cloneNode(true);
+
+  clone.style.position = "fixed";
+  clone.style.left = "50%";
+  clone.style.top = "50%";
+  clone.style.zIndex = "99999";
+  clone.style.pointerEvents = "none";
+  clone.style.willChange = "transform";
+  clone.style.transition = "transform 1.1s ease-in-out";
+
+  // start state (center + big)
+  clone.style.transform = "translate(-50%, -50%) scale(18)";
+
+  document.body.appendChild(clone);
+
+  realStar.style.visibility = "hidden";
+
+  const targetX = rect.left + rect.width / 2;
+  const targetY = rect.top + rect.height / 2;
+
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  const dx = targetX - centerX;
+  const dy = targetY - centerY;
+
+  requestAnimationFrame(() => {
+    clone.style.transform =
+      `translate(${dx}px, ${dy}px) scale(1)`;
+  });
+
+  clone.addEventListener("transitionend", () => {
+    clone.remove();
+    realStar.style.visibility = "visible";
+  });
+
 });
