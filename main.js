@@ -156,7 +156,7 @@ function animateCounter(element, target, duration = 2000) {
   }, 16);
 }
 
-// Observe stat boxes and trigger counter animation
+
 const statBoxes = document.querySelectorAll('.stat-box h3');
 const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -231,93 +231,10 @@ function runStarIntro() {
 }
 
 
-/* ✅ THIS is the important part */
 
 window.addEventListener("pageshow", () => {
   runStarIntro();
 });
-
-
-// // ===== Quick Hire Custom Validation =====
-
-// const form = document.getElementById("quickHireForm");
-
-// if (form) {
-
-//   const companyName = document.getElementById("companyName");
-//   const industry = document.getElementById("industry");
-//   const quantity = document.getElementById("quantity");
-//   const email = document.getElementById("email");
-
-//   function showError(input, message) {
-//     const formGroup = input.parentElement;
-//     formGroup.classList.add("error");
-//     const small = formGroup.querySelector(".error-message");
-//     small.textContent = message;
-//   }
-
-//   function clearError(input) {
-//     const formGroup = input.parentElement;
-//     formGroup.classList.remove("error");
-//     const small = formGroup.querySelector(".error-message");
-//     small.textContent = "";
-//   }
-
-//   function validateEmail(emailValue) {
-//     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     return regex.test(emailValue);
-//   }
-
-//   form.addEventListener("submit", function (e) {
-//     e.preventDefault();
-
-//     let isValid = true;
-
-//     // Company Name
-//     if (companyName.value.trim() === "") {
-//       showError(companyName, "Company name is required");
-//       isValid = false;
-//     } else {
-//       clearError(companyName);
-//     }
-
-//     // Industry
-//     if (industry.value === "") {
-//       showError(industry, "Please select an industry");
-//       isValid = false;
-//     } else {
-//       clearError(industry);
-//     }
-
-//     // Quantity
-//     if (quantity.value.trim() === "") {
-//       showError(quantity, "Staff quantity is required");
-//       isValid = false;
-//     } else if (isNaN(quantity.value) || quantity.value <= 0) {
-//       showError(quantity, "Enter a valid number greater than 0");
-//       isValid = false;
-//     } else {
-//       clearError(quantity);
-//     }
-
-//     // Email
-//     if (email.value.trim() === "") {
-//       showError(email, "Email is required");
-//       isValid = false;
-//     } else if (!validateEmail(email.value.trim())) {
-//       showError(email, "Enter a valid email address");
-//       isValid = false;
-//     } else {
-//       clearError(email);
-//     }
-
-//     if (isValid) {
-//       alert("Form submitted successfully!");
-//       form.reset();
-//     }
-
-//   });
-// }
 
 // ===== FINAL QUICK HIRE FORM HANDLER =====
 
