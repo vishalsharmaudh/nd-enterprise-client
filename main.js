@@ -236,3 +236,206 @@ function runStarIntro() {
 window.addEventListener("pageshow", () => {
   runStarIntro();
 });
+
+
+// // ===== Quick Hire Custom Validation =====
+
+// const form = document.getElementById("quickHireForm");
+
+// if (form) {
+
+//   const companyName = document.getElementById("companyName");
+//   const industry = document.getElementById("industry");
+//   const quantity = document.getElementById("quantity");
+//   const email = document.getElementById("email");
+
+//   function showError(input, message) {
+//     const formGroup = input.parentElement;
+//     formGroup.classList.add("error");
+//     const small = formGroup.querySelector(".error-message");
+//     small.textContent = message;
+//   }
+
+//   function clearError(input) {
+//     const formGroup = input.parentElement;
+//     formGroup.classList.remove("error");
+//     const small = formGroup.querySelector(".error-message");
+//     small.textContent = "";
+//   }
+
+//   function validateEmail(emailValue) {
+//     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     return regex.test(emailValue);
+//   }
+
+//   form.addEventListener("submit", function (e) {
+//     e.preventDefault();
+
+//     let isValid = true;
+
+//     // Company Name
+//     if (companyName.value.trim() === "") {
+//       showError(companyName, "Company name is required");
+//       isValid = false;
+//     } else {
+//       clearError(companyName);
+//     }
+
+//     // Industry
+//     if (industry.value === "") {
+//       showError(industry, "Please select an industry");
+//       isValid = false;
+//     } else {
+//       clearError(industry);
+//     }
+
+//     // Quantity
+//     if (quantity.value.trim() === "") {
+//       showError(quantity, "Staff quantity is required");
+//       isValid = false;
+//     } else if (isNaN(quantity.value) || quantity.value <= 0) {
+//       showError(quantity, "Enter a valid number greater than 0");
+//       isValid = false;
+//     } else {
+//       clearError(quantity);
+//     }
+
+//     // Email
+//     if (email.value.trim() === "") {
+//       showError(email, "Email is required");
+//       isValid = false;
+//     } else if (!validateEmail(email.value.trim())) {
+//       showError(email, "Enter a valid email address");
+//       isValid = false;
+//     } else {
+//       clearError(email);
+//     }
+
+//     if (isValid) {
+//       alert("Form submitted successfully!");
+//       form.reset();
+//     }
+
+//   });
+// }
+
+// ===== FINAL QUICK HIRE FORM HANDLER =====
+
+(function () {
+  emailjs.init("ClN05_9Y0DvooR69D");
+})();
+
+const form = document.getElementById("quickHireForm");
+const successPopup = document.getElementById("successMessage");
+
+if (form) {
+
+  const companyName = document.getElementById("companyName");
+  const industry = document.getElementById("industry");
+  const quantity = document.getElementById("quantity");
+  const email = document.getElementById("email");
+
+  function showError(input, message) {
+    const formGroup = input.parentElement;
+    formGroup.classList.add("error");
+    formGroup.querySelector(".error-message").textContent = message;
+  }
+
+  function clearError(input) {
+    const formGroup = input.parentElement;
+    formGroup.classList.remove("error");
+    formGroup.querySelector(".error-message").textContent = "";
+  }
+
+  function validateEmail(emailValue) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(emailValue);
+  }
+
+  form.addEventListener("submit", function (e) {
+
+    e.preventDefault();
+    let isValid = true;
+
+    // Company
+    if (companyName.value.trim() === "") {
+      showError(companyName, "Company name is required");
+      isValid = false;
+    } else {
+      clearError(companyName);
+    }
+
+    // Industry
+    if (industry.value === "") {
+      showError(industry, "Please select industry");
+      isValid = false;
+    } else {
+      clearError(industry);
+    }
+
+    // Quantity
+    if (quantity.value.trim() === "") {
+      showError(quantity, "Quantity required");
+      isValid = false;
+    } else if (isNaN(quantity.value) || quantity.value <= 0) {
+      showError(quantity, "Enter valid number");
+      isValid = false;
+    } else {
+      clearError(quantity);
+    }
+
+    // Email
+    if (email.value.trim() === "") {
+      showError(email, "Email required");
+      isValid = false;
+    } else if (!validateEmail(email.value.trim())) {
+      showError(email, "Enter valid email");
+      isValid = false;
+    } else {
+      clearError(email);
+    }
+
+    if (!isValid) return;
+
+    // Get urgency
+    const activeUrgency = document.querySelector(".urgency-btn.active");
+    const urgencyValue = activeUrgency ? activeUrgency.textContent : "Standard";
+
+    const templateParams = {
+      company_name: companyName.value,
+      industry: industry.value,
+      quantity: quantity.value,
+      email: email.value,
+      urgency: urgencyValue
+    };
+
+    // Disable button while sending
+    const submitBtn = form.querySelector(".submit-btn");
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+
+    emailjs.send(
+      "service_i3imfu1",
+      "template_nht86vv",
+      templateParams
+    ).then(function () {
+
+      successPopup.classList.add("show");
+      form.reset();
+
+      submitBtn.textContent = "Request Quote";
+      submitBtn.disabled = false;
+
+      setTimeout(() => {
+        successPopup.classList.remove("show");
+      }, 4000);
+
+    }).catch(function (error) {
+      alert("Email failed. Try again.");
+      console.log(error);
+      submitBtn.textContent = "Request Quote";
+      submitBtn.disabled = false;
+    });
+
+  });
+}
